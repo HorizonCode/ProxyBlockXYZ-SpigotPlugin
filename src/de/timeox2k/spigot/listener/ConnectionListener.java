@@ -12,12 +12,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+
+import de.timeox2k.spigot.ProxyBlockXYZ;
+
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 
 public class ConnectionListener implements Listener {
 
-	private final ArrayList<String> addressCache = new ArrayList<>();
-	private final ArrayList<String> blockedCache = new ArrayList<>();
+	public static final ArrayList<String> addressCache = new ArrayList<>();
+	public static final ArrayList<String> blockedCache = new ArrayList<>();
 
 	@EventHandler
 	public void on(AsyncPlayerPreLoginEvent event) {
@@ -55,6 +58,16 @@ public class ConnectionListener implements Listener {
 				e.printStackTrace();
 				event.disallow(Result.KICK_OTHER,
 						"§cProxyBlock.XYZ\n\n§4We were unable to check your IP.\n\n§cPlease try again later.\n\n§aMore Information: https://proxyblock.xyz");
+			}
+		}
+		
+		if(ProxyBlockXYZ.getInstance().getConfig().getBoolean("ProxyBlockXYZ.clearcache")) {
+			if(addressCache.size() >= ProxyBlockXYZ.getInstance().getConfig().getInt("ProxyBlockXYZ.clearCacheAfterSize")) {
+				addressCache.clear();
+				ProxyBlockXYZ.getProxyLogger().info("Cleared the Address-Cache after reaching limit.");
+			} else if(blockedCache.size() >= ProxyBlockXYZ.getInstance().getConfig().getInt("ProxyBlockXYZ.clearCacheAfterSize")) {
+				blockedCache.clear();
+				ProxyBlockXYZ.getProxyLogger().info("Cleared the Blocked-Cache after reaching limit.");
 			}
 		}
 
