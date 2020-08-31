@@ -1,4 +1,10 @@
-name: ProxyBlockXYZ-Spigot
-author: Timeox2k
-version: 1.1
-main: de.timeox2k.spigot.ProxyBlockXYZ
+name: ProxyBlockXYZSpigot
+authors: [Timeox2k, HorizonCode]
+version: 1.2
+main: xyz.proxyblock.spigot.ProxyBlockXYZ
+
+commands:
+  proxyblock:
+    description: The Main command for the ProxyBlock Plugin
+    aliases:
+      - pb
