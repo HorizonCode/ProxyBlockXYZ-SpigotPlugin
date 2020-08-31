@@ -38,7 +38,7 @@ public class ConnectionListener implements Listener {
         if (!addressCache.contains(address) && !blockedCache.contains(address)) {
             try {
                 String response = webUtils.getResponseFromURLAsync("https://proxyblock.xyz/api/check.php?ip=" + address);
-                if (response.contains("1")) {
+                if (response != null && !response.isEmpty() && response.contains("1")) {
                     event.disallow(Result.KICK_OTHER,
                             "§cProxyBlock.XYZ\n\n§4We found your IP in our Database.\n\n§cPlease disable your VPN.\n\n§aMore Information: https://proxyblock.xyz");
                     blockedCache.add(address);
