@@ -105,6 +105,8 @@ public class ProxyBlockXYZ extends JavaPlugin implements CommandExecutor {
                     case "reload":
                         reloadConfig();
                         from.sendMessage("§7[§aProxyBlockXYZ§7] §aconfig reloaded.");
+                        ConnectionListener.whitelist.clear();
+                        ConnectionListener.whitelist.addAll(getConfig().getStringList("ProxyBlockXYZ.whitelist"));
                         break;
                     default:
                         printHelp(from, label);
